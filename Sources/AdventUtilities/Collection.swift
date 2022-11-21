@@ -2,19 +2,21 @@ import Algorithms
 
 extension Collection {
   // requires collection to be sorted before calling
-  private func firstIfUnique<Subject: Hashable>(on projection: (Element) throws -> Subject) rethrows -> Element? {
+  func firstIfUnique<Subject: Equatable>(on projection: (Element) throws -> Subject) rethrows -> Element? {
     guard let first = self.first else { return nil }
-    if let second = self.dropFirst().first, try projection(first) == projection(second) { return nil }
+    if let second = self.second, try projection(first) == projection(second) { return nil }
     return first
   }
 }
 
-extension Collection where Element: Hashable {
+extension Collection where Element: Equatable {
   // requires collection to be sorted before calling
-  private func firstIfUnique() -> Element? {
+  func firstIfUnique() -> Element? {
     firstIfUnique { $0 }
   }
+}
 
+extension Collection where Element: Hashable {
   // O(n)
   public func occurrenceCounts() -> [(element: Element, count: Int)] {
     self

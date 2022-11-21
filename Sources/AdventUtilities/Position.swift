@@ -1,4 +1,4 @@
-public struct Position: Hashable {
+public struct Position: Hashable, Equatable {
   public var row: Int
   public var col: Int
 
@@ -54,8 +54,8 @@ public extension Position {
 extension Array where Element: RandomAccessCollection, Element.Index == Int {
   public typealias BaseElement = Element.Element
 
-  public var numberOfRows: Int { self.count }
-  public var numberOfColumns: Int { self[0].count }
+  public var numberOfRows: Int { count }
+  public var numberOfColumns: Int { numberOfRows == 0 ? 0 : self[0].count }
 
   public subscript(_ position: Position) -> BaseElement {
     get { self[position.row][position.col] }
