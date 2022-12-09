@@ -19,9 +19,13 @@ public func -(position: Position, change: (row: Int, col: Int)) -> Position {
 extension Position {
   public func next(toward: Position) -> Position? {
     var next = self
-    next.row.advance(toward: toward.row)
-    next.col.advance(toward: toward.col)
+    next.advance(toward: toward)
     return next != self ? next : nil
+  }
+
+  public mutating func advance(toward: Position) {
+    self.row.advance(toward: toward.row)
+    self.col.advance(toward: toward.col)
   }
 
   public func adjacentPositions(includingDiagonals: Bool = false) -> [Position] {
@@ -32,9 +36,13 @@ extension Position {
 
     return changes.map { self + $0 }
   }
+
+  public func isAdjacent(to other: Position, includingDiagonals: Bool = false) -> Bool {
+    adjacentPositions(includingDiagonals: includingDiagonals).contains(other)
+  }
 }
 
-public enum Direction { case up, left, down, right }
+public enum Direction: CaseIterable { case up, left, down, right }
 
 public extension Position {
   func moved(_ direction: Direction) -> Position {

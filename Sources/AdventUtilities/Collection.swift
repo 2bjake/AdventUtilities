@@ -62,3 +62,10 @@ extension Collection where Element: Comparable {
     self.adjacentPairs().allSatisfy { first, second in first <= second }
   }
 }
+
+extension Collection {
+  public func halved() -> (front: Self.SubSequence, back: Self.SubSequence)? {
+    guard count > 0 && count.isMultiple(of: 2) else { return nil }
+    return (prefix(count / 2), suffix(count / 2))
+  }
+}
