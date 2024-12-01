@@ -8,7 +8,7 @@
 import RegexBuilder
 
 @available(macOS 13.0, *)
-public extension Capture<(Substring, Int)> {
+extension Capture<(Substring, Int)> {
   public static let int = Capture {
     OneOrMore(.digit)
   } transform: { Int($0)! }
