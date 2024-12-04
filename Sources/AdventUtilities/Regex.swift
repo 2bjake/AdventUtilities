@@ -10,6 +10,8 @@ import RegexBuilder
 @available(macOS 13.0, *)
 extension Capture<(Substring, Int)> {
   public static let int = Capture {
+    Optionally { "-" }
     OneOrMore(.digit)
   } transform: { Int($0)! }
 }
+
